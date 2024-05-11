@@ -1,10 +1,13 @@
+import Hero from "../components/Hero/Hero";
+import FeaturesList from "../containers/FeaturesList/FeaturesList";
 
 function Home() {
     return (
-      <div>
-        <p>Welcome to Argent Bank</p>
-      </div>
+        <>
+            <Hero />
+            <FeaturesList />
+        </>
     );
-  }
-  
-  export default Home;
+}
+
+export default Home;
