@@ -1,3 +1,4 @@
+/* RESET */
 html {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -10,19 +11,19 @@ body {
     margin: 0;
 }
 
+*:focus {
+    outline: none;
+}
+
 #root {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
+/* END RESET */
 
 .main {
     flex: 1;
-}
-
-.header {
-    color: #fff;
-    margin-bottom: 2rem;
 }
 
 .sr-only {

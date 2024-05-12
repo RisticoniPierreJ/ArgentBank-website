@@ -1,5 +1,7 @@
 import "./Transaction.css";
 
+import Button from "../Button/Button";
+
 function Transaction() {
     return (
         <>
@@ -14,9 +16,10 @@ function Transaction() {
                     </p>
                 </div>
                 <div className="account-content-wrapper cta">
-                    <button className="transaction-button">
-                        View transactions
-                    </button>
+                    <Button
+                        className="btn btnLarge btnLargeMaxWidth"
+                        text="View transactions"
+                    />
                 </div>
             </section>
             <section className="account">
@@ -30,9 +33,10 @@ function Transaction() {
                     </p>
                 </div>
                 <div className="account-content-wrapper cta">
-                    <button className="transaction-button">
-                        View transactions
-                    </button>
+                    <Button
+                        className="btn btnLarge btnLargeMaxWidth"
+                        text="View transactions"
+                    />
                 </div>
             </section>
             <section className="account">
@@ -46,9 +50,10 @@ function Transaction() {
                     </p>
                 </div>
                 <div className="account-content-wrapper cta">
-                    <button className="transaction-button">
-                        View transactions
-                    </button>
+                    <Button
+                        className="btn btnLarge btnLargeMaxWidth"
+                        text="View transactions"
+                    />
                 </div>
             </section>
         </>

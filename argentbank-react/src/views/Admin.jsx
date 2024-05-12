@@ -1,15 +1,18 @@
+import "./Admin.css";
+
 import Transaction from "../components/Transaction/Transaction";
+import Button from "../components/Button/Button";
 
 function Admin() {
     return (
         <main className="main bg-dark">
-            <div className="header">
+            <div className="mainTop">
                 <h1>
                     Welcome back
                     <br />
                     Tony Jarvis!
                 </h1>
-                <button className="edit-button">Edit Name</button>
+                <Button className="btn btnSmall" text="Edit Name" />
             </div>
             <h2 className="sr-only">Accounts</h2>
             <Transaction />

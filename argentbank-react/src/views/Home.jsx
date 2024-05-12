@@ -3,10 +3,10 @@ import FeaturesList from "../containers/FeaturesList/FeaturesList";
 
 function Home() {
     return (
-        <>
+        <main>
             <Hero />
             <FeaturesList />
-        </>
+        </main>
     );
 }
 
