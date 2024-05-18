@@ -7,7 +7,7 @@ import Login from "./views/Login";
 
 import Header from "./containers/Header/Header";
 import Footer from "./containers/Footer/Footer";
-import Admin from "./views/Admin";
+import Profile from "./views/Profile";
 
 function App() {
     return (
@@ -15,8 +15,8 @@ function App() {
             <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/sign-in" element={<Login />} />
-                <Route path="/admin" element={<Admin />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/profile" element={<Profile />} />
             </Routes>
             <Footer />
         </Router>

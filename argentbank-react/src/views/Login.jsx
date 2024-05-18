@@ -1,4 +1,4 @@
-import Form from "../containers/Form/Form";
+import LoginForm from "../containers/Form/LoginForm";
 
 function Login() {
     return (
@@ -6,7 +6,7 @@ function Login() {
             <section className="sign-in-content">
                 <i className="fa fa-user-circle sign-in-icon"></i>
                 <h1>Sign In</h1>
-                <Form />
+                <LoginForm />
             </section>
         </main>
     );

@@ -1,9 +1,9 @@
-import "./Admin.css";
+import "./Profile.css";
 
 import Transaction from "../components/Transaction/Transaction";
 import Button from "../components/Button/Button";
 
-function Admin() {
+function Profile() {
     return (
         <main className="main bg-dark">
             <div className="mainTop">
@@ -20,4 +20,4 @@ function Admin() {
     );
 }
 
-export default Admin;
+export default Profile;
