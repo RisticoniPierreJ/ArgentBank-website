@@ -34,8 +34,13 @@ const userSlice = createSlice({
     name: "user",
     initialState,
 
-    // Pas de réducteurs supplémentaires
-    reducers: {},
+    reducers: {
+        resetUser: (state) => {
+            state.user = initialUser;
+            state.loading = initialState.loading;
+            state.error = initialState.error;
+        },
+    },
 
     // extraReducers est utilisé pour gérer les actions qui ont été définies en dehors de ce slice.
     // Dans ce cas, il gère l'action fetchUserProfile qui a été définie dans userActions.
@@ -65,7 +70,7 @@ const userSlice = createSlice({
                 //Cela permet de garder les informations de l'utilisateur disponibles même après le rafraîchissement de la page.
                 localStorage.setItem("user", JSON.stringify(action.payload));
             })
-            
+
             // Lorsque la requête de profil d'utilisateur échoue, mettre à jour l'état
             .addCase(fetchUserProfile.rejected, (state, action) => {
                 state.loading = false;
@@ -75,4 +80,5 @@ const userSlice = createSlice({
     },
 });
 
+export const { resetUser } = userSlice.actions;
 export default userSlice.reducer;

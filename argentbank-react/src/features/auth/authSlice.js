@@ -17,8 +17,15 @@ const authSlice = createSlice({
     name: "auth",
     initialState,
 
-    // Pas de réducteurs supplémentaires
-    reducers: {}, 
+    reducers: {
+        // Définission d'un reducer pour réinitialiser l'état d'authentification à l'état initial
+        resetAuth: (state) => {
+            state.isAuthenticated = initialState.isAuthenticated;
+            state.token = initialState.token;
+            state.loading = initialState.loading;
+            state.error = initialState.error;
+        },
+    },
 
     // extraReducers est utilisé pour gérer les actions qui ont été définies en dehors de ce slice.
     // Dans ce cas, il gère les actions login et logout qui ont été définies dans authActions.
@@ -49,15 +56,14 @@ const authSlice = createSlice({
                 state.error = action.payload;
                 console.log("Login rejected:", action.payload);
             })
+
             
-            // Lorsque la requête de déconnexion réussit, réinitialiser l'état et le localStorage
             .addCase(logout.fulfilled, (state) => {
                 state.isAuthenticated = false;
                 state.token = null;
-                localStorage.removeItem("token");
-                localStorage.removeItem("user");
             });
     },
 });
 
+export const { resetAuth } = authSlice.actions;
 export default authSlice.reducer;

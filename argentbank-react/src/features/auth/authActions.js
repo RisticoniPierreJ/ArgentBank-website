@@ -1,6 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { loginUser, logoutUser } from "../../api/userAPI";
-// import { fetchUserProfile } from "../user/userActions";
+import { resetAuth } from "./authSlice";
+import { resetUser } from "../user/userSlice";
+import { fetchUserProfile } from "../user/userActions";
 
 // Action asynchrone pour l'authentification de l'utilisateur
 // Cette action prend en paramètre l'email et le mot de passe de l'utilisateur
@@ -12,7 +14,7 @@ export const login = createAsyncThunk(
         try {
             const data = await loginUser(email, password);
             const token = data.body.token;
-            // thunkAPI.dispatch(fetchUserProfile(token));
+            thunkAPI.dispatch(fetchUserProfile(token));
             return { token };
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data);
@@ -25,6 +27,12 @@ export const login = createAsyncThunk(
 export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
     try {
         await logoutUser();
+
+        // Réinitialisation de l'état et du localStorage
+        thunkAPI.dispatch(resetAuth());
+        thunkAPI.dispatch(resetUser());
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
 
         return true;
     } catch (error) {

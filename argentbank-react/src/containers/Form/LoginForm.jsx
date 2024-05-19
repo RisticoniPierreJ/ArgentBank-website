@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../features/auth/authActions";
-import { fetchUserProfile } from "../../features/user/userActions";
+// import { fetchUserProfile } from "../../features/user/userActions";
 
 function LoginForm() {
     const [email, setemail] = useState("");
@@ -15,7 +15,7 @@ function LoginForm() {
     // Utilise le hook useDispatch pour permettre l'envoi d'actions à Redux
     const dispatch = useDispatch();
 
-    const { isAuthenticated, loading, token, error } = useSelector(
+    const { isAuthenticated, loading, error } = useSelector(
         (state) => state.auth
     );
 
@@ -25,14 +25,20 @@ function LoginForm() {
         dispatch(login({ email, password }));
     };
 
+    // // Utilisation du hook useEffect pour effectuer des actions en réponse à des changements dans l'état de l'authentification
+    // useEffect(() => {
+    //     if (isAuthenticated && token) {
+    //         navigate("/profile");
+    //         dispatch(fetchUserProfile(token));
+    //     }
+    // }, [isAuthenticated, token, dispatch, navigate]);
+
     // Utilisation du hook useEffect pour effectuer des actions en réponse à des changements dans l'état de l'authentification
     useEffect(() => {
-        if (isAuthenticated && token) {
-            // Si l'utilisateur est authentifié, navigue vers la page de profil
+        if (isAuthenticated) {
             navigate("/profile");
-            dispatch(fetchUserProfile(token));
         }
-    }, [isAuthenticated, token, dispatch, navigate]); // Les dépendances du hook useEffect : il s'exécute à nouveau chaque fois que l'une de ces valeurs change
+    }, [isAuthenticated, navigate]);
 
     return (
         <form onSubmit={handleSubmit}>
