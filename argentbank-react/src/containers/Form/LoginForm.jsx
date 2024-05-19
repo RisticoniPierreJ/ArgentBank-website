@@ -10,31 +10,29 @@ import { fetchUserProfile } from "../../features/user/userActions";
 function LoginForm() {
     const [email, setemail] = useState("");
     const [password, setPassword] = useState("");
-    const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    // Utilise le hook useDispatch pour permettre l'envoi d'actions à Redux
+    const dispatch = useDispatch();
 
     const { isAuthenticated, loading, token, error } = useSelector(
         (state) => state.auth
     );
 
+    // Fonction qui gère l'envoi de l'action de connexion à Redux lors de la soumission du formulaire
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(login({ email, password }));
     };
 
+    // Utilisation du hook useEffect pour effectuer des actions en réponse à des changements dans l'état de l'authentification
     useEffect(() => {
         if (isAuthenticated && token) {
-            dispatch(fetchUserProfile(token)).then(() => {
-                navigate("/profile");
-            });
+            // Si l'utilisateur est authentifié, navigue vers la page de profil
+            navigate("/profile");
+            dispatch(fetchUserProfile(token));
         }
-    }, [isAuthenticated, token, dispatch, navigate]);
-
-    // useEffect(() => {
-    //     if (isAuthenticated) {
-    //         navigate("/profile");
-    //     }
-    // }, [isAuthenticated, navigate]);
+    }, [isAuthenticated, token, dispatch, navigate]); // Les dépendances du hook useEffect : il s'exécute à nouveau chaque fois que l'une de ces valeurs change
 
     return (
         <form onSubmit={handleSubmit}>

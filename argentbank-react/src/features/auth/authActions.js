@@ -1,28 +1,27 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { loginUser, logoutUser } from "../../api/userAPI";
-import { fetchUserProfile } from "../user/userActions";
+// import { fetchUserProfile } from "../user/userActions";
 
-// Action asynchrone pour l'authentification
+// Action asynchrone pour l'authentification de l'utilisateur
+// Cette action prend en paramètre l'email et le mot de passe de l'utilisateur
+// Elle envoie une requête à l'API pour authentifier l'utilisateur
+// Si la requête réussit, elle retourne le token d'authentification
 export const login = createAsyncThunk(
     "auth/login",
     async ({ email, password }, thunkAPI) => {
         try {
             const data = await loginUser(email, password);
             const token = data.body.token;
-
-            console.log("Voir si le token est bien recu :", token);
-
-            thunkAPI.dispatch(fetchUserProfile(token));
-
+            // thunkAPI.dispatch(fetchUserProfile(token));
             return { token };
         } catch (error) {
-            console.error("Login error:", error); // Ajoutez ce log
             return thunkAPI.rejectWithValue(error.response.data);
         }
     }
 );
 
-// Action asynchrone pour la déconnexion
+// Action asynchrone pour la déconnexion de l'utilisateur
+// Elle envoie une requête à l'API pour déconnecter l'utilisateur
 export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
     try {
         await logoutUser();

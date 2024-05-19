@@ -8,14 +8,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../features/auth/authActions";
 
 function Navbar() {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    // Utilise le hook useSelector pour accéder aux états  
     const { user } = useSelector((state) => state.user);
     const { isAuthenticated } = useSelector((state) => state.auth);
 
+    // Utilise le hook useDispatch pour permettre l'envoi d'actions à Redux
+    const dispatch = useDispatch();
+    
+    // Fonction qui gère l'envoi de l'action de déconnexion à Redux lors du clic sur le bouton de déconnexion
     const handleLogout = () => {
-        dispatch(logout());
-        navigate("/");
+        dispatch(logout()); 
+        navigate("/"); 
     };
 
     return (
