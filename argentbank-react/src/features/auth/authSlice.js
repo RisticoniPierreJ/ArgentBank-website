@@ -7,10 +7,10 @@ const token = localStorage.getItem("token");
 // Définir l'état initial du slice d'authentification
 const initialState = {
     // L'utilisateur est authentifié si un token est présent
-    isAuthenticated: !!token, 
-    token: token, 
+    isAuthenticated: !!token,
+    token: token,
     loading: false,
-    error: null, 
+    error: null,
 };
 
 const authSlice = createSlice({
@@ -20,10 +20,20 @@ const authSlice = createSlice({
     reducers: {
         // Définission d'un reducer pour réinitialiser l'état d'authentification à l'état initial
         resetAuth: (state) => {
-            state.isAuthenticated = initialState.isAuthenticated;
-            state.token = initialState.token;
-            state.loading = initialState.loading;
-            state.error = initialState.error;
+            state.isAuthenticated = false;
+            state.token = null;
+            state.loading = false;
+            state.error = null;
+            // state.isAuthenticated = initialState.isAuthenticated;
+            // state.token = initialState.token;
+            // state.loading = initialState.loading;
+            // state.error = initialState.error;
+
+            // log de contrôle de l'état après réinitialisation
+            console.log(
+                "resetAuth action called, state reset to:",
+                JSON.parse(JSON.stringify(state))
+            );
         },
     },
 
@@ -32,35 +42,36 @@ const authSlice = createSlice({
     // Le builder est utilisé pour ajouter des gestionnaires d'actions à l'état.
     extraReducers: (builder) => {
         builder
-            // Lorsque la requête d'authentification est en cours, activer l'indicateur de chargement  
+            // Lorsque la requête d'authentification est en cours, activer l'indicateur de chargement
             .addCase(login.pending, (state) => {
                 state.loading = true;
             })
 
-            // Lorsque la requête d'authentification réussit, mettre à jour l'état et le localStorage
+            // Lorsque la requête d'authentification réussit, mettre à jour l'état
             .addCase(login.fulfilled, (state, action) => {
                 state.isAuthenticated = true;
                 state.token = action.payload.token;
                 state.loading = false;
                 state.error = null;
-
-                // Stocker le token d'authentification dans le localStorage. 
-                // Cela permet de garder l'utilisateur connecté même après le rafraîchissement de la page
-                localStorage.setItem("token", action.payload.token);
-                
             })
 
             // Lorsque la requête d'authentification échoue, mettre à jour l'état
             .addCase(login.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
-                console.log("Login rejected:", action.payload);
             })
 
-            
             .addCase(logout.fulfilled, (state) => {
                 state.isAuthenticated = false;
                 state.token = null;
+                state.loading = false;
+                state.error = null;
+
+                // log de contrôle de l'état après déconnexion
+                console.log(
+                    "logout.fulfilled: state",
+                    JSON.parse(JSON.stringify(state))
+                );
             });
     },
 });

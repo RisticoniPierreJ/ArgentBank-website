@@ -5,9 +5,7 @@ import axios from "axios";
 const API_URL = "http://localhost:3001/api/v1/user";
 
 // Fonction d'authentification de l'utilisateur
-// Prend en paramètre l'email et le mot de passe de l'utilisateur
 // Envoie une requête POST à l'API pour authentifier l'utilisateur
-// Retourne les données de la réponse de l'API
 export const loginUser = async (email, password) => {
     const response = await axios.post(`${API_URL}/login`, { email, password });
     return response.data;
@@ -20,9 +18,7 @@ export const logoutUser = async () => {
 };
 
 // Fonction pour récupérer les données de l'utilisateur
-// Prend en paramètre le token d'authentification de l'utilisateur
 // Envoie une requête POST à l'API pour récupérer les données de l'utilisateur
-// Retourne les données de la réponse de l'API
 export const getUserProfile = async (token) => {
     const response = await axios.post(
         `${API_URL}/profile`,
@@ -37,5 +33,7 @@ export const getUserProfile = async (token) => {
             },
         }
     );
-    return response.data;
+
+    const { email, firstName, lastName, userName, id } = response.data.body;
+    return { email, firstName, lastName, userName, id };
 };

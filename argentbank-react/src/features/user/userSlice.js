@@ -10,7 +10,7 @@ let initialUser = {
     firstName: "",
     lastName: "",
     userName: "",
-    userId: "",
+    Id: "",
 };
 
 // Si un utilisateur est stocké dans le localStorage, essayer de le parser et de l'utiliser comme utilisateur initial
@@ -22,6 +22,7 @@ if (storedUser) {
     }
 }
 
+console.log("Initial user state:", initialUser);
 
 // Définir l'état initial du slice d'utilisateur
 const initialState = {
@@ -36,9 +37,19 @@ const userSlice = createSlice({
 
     reducers: {
         resetUser: (state) => {
-            state.user = initialUser;
+            state.user.email = "";
+            state.user.firstName = "";
+            state.user.lastName = "";
+            state.user.userName = "";
+            state.user.id = "";
             state.loading = initialState.loading;
             state.error = initialState.error;
+
+            // log de contrôle de l'état après réinitialisation
+            console.log(
+                "resetUser action called, state reset to:",
+                JSON.parse(JSON.stringify(state))
+            );
         },
     },
 
@@ -53,29 +64,24 @@ const userSlice = createSlice({
                 state.loading = true;
             })
 
-            // Lorsque la requête de profil d'utilisateur réussit, mettre à jour l'état et le localStorage
+            // Lorsque la requête de profil d'utilisateur réussit, mettre à jour l'état
             .addCase(fetchUserProfile.fulfilled, (state, action) => {
                 state.user = {
                     email: action.payload.email,
                     firstName: action.payload.firstName,
                     lastName: action.payload.lastName,
                     userName: action.payload.userName,
-                    userId: action.payload.id,
+                    id: action.payload.id,
                 };
                 state.loading = false;
                 state.error = null;
-
-                // Stocke les informations de profil de l'utilisateur dans le localStorage.
-                //Les données sont converties en chaîne de caractères JSON pour être stockées.
-                //Cela permet de garder les informations de l'utilisateur disponibles même après le rafraîchissement de la page.
-                localStorage.setItem("user", JSON.stringify(action.payload));
             })
 
             // Lorsque la requête de profil d'utilisateur échoue, mettre à jour l'état
             .addCase(fetchUserProfile.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
-                console.log("Fetch user profile rejected:", action.payload);
+                console.log("fetchUserProfile.rejected: state", state);
             });
     },
 });

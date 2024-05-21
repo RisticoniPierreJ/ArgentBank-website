@@ -15,6 +15,11 @@ export const login = createAsyncThunk(
             const data = await loginUser(email, password);
             const token = data.body.token;
             thunkAPI.dispatch(fetchUserProfile(token));
+
+            // Stocker le token d'authentification dans le localStorage.
+            // Cela permet de garder l'utilisateur connecté même après le rafraîchissement de la page
+            localStorage.setItem("token", token);
+
             return { token };
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data);
@@ -28,11 +33,27 @@ export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
     try {
         await logoutUser();
 
-        // Réinitialisation de l'état et du localStorage
-        thunkAPI.dispatch(resetAuth());
-        thunkAPI.dispatch(resetUser());
+        // log de contrôle du localStorage avant
+        console.log(
+            "Before removing items from localStorage:",
+            localStorage.getItem("token"),
+            localStorage.getItem("user")
+        );
+        
+        // Réinitialisation du localStorage
         localStorage.removeItem("token");
         localStorage.removeItem("user");
+
+        // log de contrôle du localStorage après
+        console.log(
+            "After removing items from localStorage:",
+            localStorage.getItem("token"),
+            localStorage.getItem("user")
+        );
+
+        // Réinitialisation de l'état
+        thunkAPI.dispatch(resetAuth());
+        thunkAPI.dispatch(resetUser());
 
         return true;
     } catch (error) {

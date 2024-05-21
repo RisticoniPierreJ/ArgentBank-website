@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../features/auth/authActions";
-// import { fetchUserProfile } from "../../features/user/userActions";
 
 function LoginForm() {
     const [email, setemail] = useState("");
@@ -24,14 +23,6 @@ function LoginForm() {
         e.preventDefault();
         dispatch(login({ email, password }));
     };
-
-    // // Utilisation du hook useEffect pour effectuer des actions en réponse à des changements dans l'état de l'authentification
-    // useEffect(() => {
-    //     if (isAuthenticated && token) {
-    //         navigate("/profile");
-    //         dispatch(fetchUserProfile(token));
-    //     }
-    // }, [isAuthenticated, token, dispatch, navigate]);
 
     // Utilisation du hook useEffect pour effectuer des actions en réponse à des changements dans l'état de l'authentification
     useEffect(() => {
