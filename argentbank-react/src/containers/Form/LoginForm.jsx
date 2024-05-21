@@ -40,6 +40,7 @@ function LoginForm() {
                     id="username"
                     value={email}
                     onChange={(e) => setemail(e.target.value)}
+                    required
                 />
             </div>
             <div className="input-wrapper">
@@ -49,6 +50,7 @@ function LoginForm() {
                     id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                 />
             </div>
             <div className="input-remember">
@@ -58,7 +60,12 @@ function LoginForm() {
             <button type="submit" className="btn btnLarge" disabled={loading}>
                 {loading ? "Loading..." : "Sign In"}
             </button>
-            {error && <p>{error}</p>}
+            {error && (
+                <div className="errorMessage">
+                    <i className="fa-solid fa-triangle-exclamation"></i>
+                    <p>{error}</p>
+                </div>
+            )}
         </form>
     );
 }

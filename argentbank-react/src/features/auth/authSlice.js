@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { login, logout } from "./authActions";
+import { login } from "./authActions";
 
 // Récupérer le token d'authentification du localStorage
 const token = localStorage.getItem("token");
@@ -45,6 +45,7 @@ const authSlice = createSlice({
             // Lorsque la requête d'authentification est en cours, activer l'indicateur de chargement
             .addCase(login.pending, (state) => {
                 state.loading = true;
+                state.error = null;
             })
 
             // Lorsque la requête d'authentification réussit, mettre à jour l'état
@@ -58,20 +59,8 @@ const authSlice = createSlice({
             // Lorsque la requête d'authentification échoue, mettre à jour l'état
             .addCase(login.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload;
-            })
-
-            .addCase(logout.fulfilled, (state) => {
-                state.isAuthenticated = false;
-                state.token = null;
-                state.loading = false;
-                state.error = null;
-
-                // log de contrôle de l'état après déconnexion
-                console.log(
-                    "logout.fulfilled: state",
-                    JSON.parse(JSON.stringify(state))
-                );
+                // state.error = action.payload;
+                state.error = action.payload.message || "Invalid credentials";
             });
     },
 });
