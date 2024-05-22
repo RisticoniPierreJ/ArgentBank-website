@@ -37,3 +37,21 @@ export const getUserProfile = async (token) => {
     const { email, firstName, lastName, userName, id } = response.data.body;
     return { email, firstName, lastName, userName, id };
 };
+
+// Fonction pour mettre à jour le nom d'utilisateur
+export const updateUser = async (token, newUserNamee) => {
+    const response = await axios.put(
+        `${API_URL}/profile`,
+        { userName: newUserNamee },
+
+        // Envois du token d'authentification dans les headers de la requête
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+
+    const { userName, id } = response.data.body;
+    return { userName, id };
+};

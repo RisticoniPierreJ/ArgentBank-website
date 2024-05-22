@@ -1,14 +1,30 @@
-import { useSelector } from "react-redux";
-import Button from "../../components/Button/Button";
 import "./EditForm.css";
+import Button from "../../components/Button/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { changeUserName } from "../../features/user/userActions";
+import { useState } from "react";
+import PropTypes from "prop-types";
 
-function EditForm() {
+
+function EditForm({ toggleEditForm }) {
+    const [newUserName, setnewUserName] = useState("");
+
+    //importer les donnnées du store
     const { firstName, lastName, userName } = useSelector(
         (state) => state.user.user
     );
+    const token = useSelector((state) => state.auth.token);
+
+    const dispatch = useDispatch();
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(changeUserName({ userName: newUserName, token}));
+        toggleEditForm();
+    };
+
 
     return (
-        <form className="editForm">
+        <form className="editForm" onSubmit={handleSubmit}>
             <h2>Edit User info</h2>
             <div className="editInput-wrapper">
                 <label htmlFor="UserName">User name</label>
@@ -17,6 +33,8 @@ function EditForm() {
                     id="UserName"
                     name="UserName"
                     placeholder={userName}
+                    value={newUserName}
+                    onChange={(e) => setnewUserName(e.target.value)}
                 />
             </div>
 
@@ -46,12 +64,16 @@ function EditForm() {
                 <Button className="btn btnLarge" type={"submit"}>
                     Save
                 </Button>
-                <Button className="btn btnLarge" type={"submit"}>
+                <Button className="btn btnLarge" type={"button"} onClick={toggleEditForm}>
                     Cancel
                 </Button>
             </div>
         </form>
     );
 }
+
+EditForm.propTypes = {
+    toggleEditForm: PropTypes.func.isRequired,
+};
 
 export default EditForm;

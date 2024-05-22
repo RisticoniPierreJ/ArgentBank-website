@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUserProfile } from "./userActions";
+import { changeUserName, fetchUserProfile } from "./userActions";
 
 // Récupérer l'utilisateur du localStorage
 const storedUser = localStorage.getItem("user");
@@ -58,6 +58,10 @@ const userSlice = createSlice({
     // Le builder est utilisé pour ajouter des gestionnaires d'actions à l'état.
     extraReducers: (builder) => {
         builder
+        
+            //
+            // Cas pour la recupération de la data de l'utilisateur
+            //
 
             // Lorsque la requête de profil d'utilisateur est en cours, activer l'indicateur de chargement
             .addCase(fetchUserProfile.pending, (state) => {
@@ -82,6 +86,25 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload;
                 console.log("fetchUserProfile.rejected: state", state);
+            })
+
+            //
+            //Cas pour la modification du nom d'utilisateur
+            //
+            .addCase(changeUserName.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+
+            .addCase(changeUserName.fulfilled, (state, action) => {
+                state.user.userName = action.payload.userName;
+                state.loading = false;
+                state.error = null;
+            })
+
+            .addCase(changeUserName.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
             });
     },
 });
