@@ -3,6 +3,7 @@ import "./Profile.css";
 import Transaction from "../components/Transaction/Transaction";
 import Button from "../components/Button/Button";
 import { useSelector } from "react-redux";
+import EditForm from "../containers/Form/EditForm";
 
 function Profile() {
     const { user } = useSelector((state) => state.user);
@@ -15,7 +16,8 @@ function Profile() {
                     <br />
                     {user.firstName} {user.lastName} !
                 </h1>
-                <Button className="btn btnSmall" text="Edit Name" />
+                <Button className="btn btnSmall">Edit Name</Button>
+                <EditForm />
             </div>
             <h2 className="sr-only">Accounts</h2>
             <Transaction />

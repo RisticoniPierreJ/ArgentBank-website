@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../features/auth/authActions";
+import Button from "../../components/Button/Button";
 
 function LoginForm() {
     const [email, setemail] = useState("");
@@ -57,9 +58,9 @@ function LoginForm() {
                 <input type="checkbox" id="remember-me" />
                 <label htmlFor="remember-me">Remember me</label>
             </div>
-            <button type="submit" className="btn btnLarge" disabled={loading}>
+            <Button className="btn btnLarge" type={"submit"}>
                 {loading ? "Loading..." : "Sign In"}
-            </button>
+            </Button>
             {error && (
                 <div className="errorMessage">
                     <i className="fa-solid fa-triangle-exclamation"></i>

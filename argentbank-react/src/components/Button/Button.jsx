@@ -2,14 +2,18 @@ import "./Button.css";
 
 import PropTypes from "prop-types";
 
-function Button({ className, text }) {
-    return <button className={className}>{text}</button>;
+function Button({ className, type, children, ...props }) {
+    return (
+        <button className={className} type={type} {...props}>
+            {children}
+        </button>
+    );
 }
 
-// Validation de type PropTypes pour la prop className
 Button.propTypes = {
     className: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
+    type: PropTypes.string,
+    children: PropTypes.node.isRequired,
 };
 
 export default Button;

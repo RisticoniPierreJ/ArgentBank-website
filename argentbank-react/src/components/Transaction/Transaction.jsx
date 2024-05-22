@@ -16,10 +16,9 @@ function Transaction() {
                     </p>
                 </div>
                 <div className="account-content-wrapper cta">
-                    <Button
-                        className="btn btnLarge btnLargeMaxWidth"
-                        text="View transactions"
-                    />
+                    <Button className="btn btnLarge btnLargeMaxWidth">
+                        View transactions
+                    </Button>
                 </div>
             </section>
             <section className="account">
@@ -33,10 +32,9 @@ function Transaction() {
                     </p>
                 </div>
                 <div className="account-content-wrapper cta">
-                    <Button
-                        className="btn btnLarge btnLargeMaxWidth"
-                        text="View transactions"
-                    />
+                    <Button className="btn btnLarge btnLargeMaxWidth">
+                        View transactions
+                    </Button>
                 </div>
             </section>
             <section className="account">
@@ -50,10 +48,9 @@ function Transaction() {
                     </p>
                 </div>
                 <div className="account-content-wrapper cta">
-                    <Button
-                        className="btn btnLarge btnLargeMaxWidth"
-                        text="View transactions"
-                    />
+                    <Button className="btn btnLarge btnLargeMaxWidth">
+                        View transactions
+                    </Button>
                 </div>
             </section>
         </>
