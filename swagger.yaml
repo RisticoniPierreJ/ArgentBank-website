@@ -9,6 +9,7 @@ basePath: /api/v1
 schemes:
   - http
 paths:
+
   /user/login:
     post:
       tags:
@@ -33,6 +34,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+
   /user/signup:
     post:
       tags:
@@ -57,6 +59,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+
   /user/profile:
     post:
       security:
@@ -101,6 +104,71 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+
+  /user/transaction:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: Get User Transactions
+      description: API for fetching user transactions for the current month grouped by account
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transactions retrieved successfully
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+              message:
+                type: string
+              body:
+                type: array
+                items:
+                  $ref: '#/definitions/Transaction'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+
+  /user/transaction/{transactionId}:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: Update User Transaction
+      description: API for updating user transaction information (adding, modifying, or removing information)
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          type: string
+          description: ID of the transaction to update
+        - in: body
+          name: body
+          description: Update Transaction informations
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionUpdate'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction updated successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '404':
+          description: Transaction Not Found
+        '500':
+          description: Internal Server Error
+
+ 
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -156,3 +224,58 @@ definitions:
     properties:
       userName:
         type: string
+
+  Transaction:
+    type: object
+    properties:
+      id:
+        type: string
+        description: ID of the transaction
+      accountId:
+        type: string
+        description: ID of the account associated with the transaction
+      date:
+        type: string
+        format: date
+        description: Date of the transaction
+      description:
+        type: string
+        description: Description of the transaction
+      amount:
+        type: number
+        description: Amount of the transaction
+      balance:
+        type: number
+        description: Balance of the transaction
+      category:
+        type: string
+        description: Category of the transaction (e.g., Food, gift, etc.)
+      note:
+        type: string
+        description: Note of the transaction
+
+  TransactionUpdate:
+    type: object
+    properties:
+      accountId:
+        type: string
+        description: ID of the account associated with the transaction
+      date:
+        type: string
+        format: date
+        description: Date of the transaction
+      description:
+        type: string
+        description: Description of the transaction
+      amount:
+        type: number
+        description: Amount of the transaction
+      balance:
+        type: number
+        description: Balance of the transaction
+      category:
+        type: string
+        description: Category of the transaction (e.g., Food, gift, etc.)
+      note:
+        type: string
+        description: Note of the transaction

@@ -5,7 +5,6 @@ import { changeUserName } from "../../features/user/userActions";
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-
 function EditForm({ toggleEditForm }) {
     const [newUserName, setnewUserName] = useState("");
 
@@ -18,10 +17,14 @@ function EditForm({ toggleEditForm }) {
     const dispatch = useDispatch();
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(changeUserName({ userName: newUserName, token}));
+
+        if (newUserName.trim() === "") {
+            toggleEditForm();
+            return;
+        }
+        dispatch(changeUserName({ userName: newUserName, token }));
         toggleEditForm();
     };
-
 
     return (
         <form className="editForm" onSubmit={handleSubmit}>
@@ -64,7 +67,11 @@ function EditForm({ toggleEditForm }) {
                 <Button className="btn btnLarge" type={"submit"}>
                     Save
                 </Button>
-                <Button className="btn btnLarge" type={"button"} onClick={toggleEditForm}>
+                <Button
+                    className="btn btnLarge"
+                    type={"button"}
+                    onClick={toggleEditForm}
+                >
                     Cancel
                 </Button>
             </div>
