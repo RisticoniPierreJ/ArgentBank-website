@@ -10,6 +10,7 @@ import Button from "../../components/Button/Button";
 function LoginForm() {
     const [email, setemail] = useState("");
     const [password, setPassword] = useState("");
+    const [rememberME, setRememberMe] = useState(false);
     const navigate = useNavigate();
 
     // Utilise le hook useDispatch pour permettre l'envoi d'actions à Redux
@@ -22,7 +23,7 @@ function LoginForm() {
     // Fonction qui gère l'envoi de l'action de connexion à Redux lors de la soumission du formulaire
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(login({ email, password }));
+        dispatch(login({ email, password, rememberME }));
     };
 
     // Utilisation du hook useEffect pour effectuer des actions en réponse à des changements dans l'état de l'authentification
@@ -55,7 +56,12 @@ function LoginForm() {
                 />
             </div>
             <div className="input-remember">
-                <input type="checkbox" id="remember-me" />
+                <input
+                    type="checkbox"
+                    id="remember-me"
+                    checked={rememberME}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                />
                 <label htmlFor="remember-me">Remember me</label>
             </div>
             <Button className="btn btnLarge" type={"submit"}>

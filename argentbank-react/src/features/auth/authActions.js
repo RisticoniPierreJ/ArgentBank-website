@@ -10,15 +10,16 @@ import { fetchUserProfile } from "../user/userActions";
 // Si la requête réussit, elle retourne le token d'authentification
 export const login = createAsyncThunk(
     "auth/login",
-    async ({ email, password }, thunkAPI) => {
+    async ({ email, password, rememberME }, thunkAPI) => {
         try {
             const data = await loginUser(email, password);
             const token = data.body.token;
-            thunkAPI.dispatch(fetchUserProfile(token));
+            thunkAPI.dispatch(fetchUserProfile({ token, rememberME }));
 
-            // Stocker le token d'authentification dans le localStorage.
+            // Stocker le token d'authentification dans le localStorage, si la checkbox remember me est cochée.
             // Cela permet de garder l'utilisateur connecté même après le rafraîchissement de la page
-            localStorage.setItem("token", token);
+            const storage = rememberME ? localStorage : sessionStorage;
+            storage.setItem("token", token);
 
             return { token };
         } catch (error) {
@@ -39,7 +40,7 @@ export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
             localStorage.getItem("token"),
             localStorage.getItem("user")
         );
-        
+
         // Réinitialisation du localStorage
         localStorage.removeItem("token");
         localStorage.removeItem("user");

@@ -4,14 +4,15 @@ import { getUserProfile, updateUser } from "../../api/userAPI";
 // Action asynchrone pour récupérer le profil de l'utilisateur
 export const fetchUserProfile = createAsyncThunk(
     "user/fetchUserProfile",
-    async (token, thunkAPI) => {
+    async ({ token, rememberME }, thunkAPI) => {
         try {
             const data = await getUserProfile(token);
 
-            // Stocke les informations de profil de l'utilisateur dans le localStorage.
+            // Stocke les informations de profil de l'utilisateur dans le localStorage, si la checkbox remember me est cochée.
             //Les données sont converties en chaîne de caractères JSON pour être stockées.
             //Cela permet de garder les informations de l'utilisateur disponibles même après le rafraîchissement de la page.
-            localStorage.setItem("user", JSON.stringify(data));
+            const storage = rememberME ? localStorage : sessionStorage;
+            storage.setItem("user", JSON.stringify(data));
 
             return data;
         } catch (error) {
