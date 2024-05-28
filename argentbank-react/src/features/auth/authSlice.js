@@ -59,7 +59,6 @@ const authSlice = createSlice({
             // Lorsque la requête d'authentification échoue, mettre à jour l'état
             .addCase(login.rejected, (state, action) => {
                 state.loading = false;
-                // state.error = action.payload;
                 state.error = action.payload.message || "Invalid credentials";
             });
     },

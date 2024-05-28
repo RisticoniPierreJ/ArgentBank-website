@@ -12,7 +12,7 @@ export const loginUser = async (email, password) => {
 };
 
 // Fonction de déconnexion de l'utilisateur
-// Nee fait rien pour le moment, mais pourrait être étendue pour informer l'API que l'utilisateur s'est déconnecté
+// Ne fait rien pour le moment, mais pourrait être étendue pour informer l'API que l'utilisateur s'est déconnecté
 export const logoutUser = async () => {
     return true;
 };

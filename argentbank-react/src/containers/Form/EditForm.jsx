@@ -29,51 +29,53 @@ function EditForm({ toggleEditForm }) {
     return (
         <form className="editForm" onSubmit={handleSubmit}>
             <h2>Edit User info</h2>
-            <div className="editInput-wrapper">
-                <label htmlFor="UserName">User name</label>
-                <input
-                    type="text"
-                    id="UserName"
-                    name="UserName"
-                    placeholder={userName}
-                    value={newUserName}
-                    onChange={(e) => setnewUserName(e.target.value)}
-                />
-            </div>
+            <div className="formWrapper">
+                <div className="editInput-wrapper">
+                    <label htmlFor="UserName">User name</label>
+                    <input
+                        type="text"
+                        id="UserName"
+                        name="UserName"
+                        placeholder={userName}
+                        value={newUserName}
+                        onChange={(e) => setnewUserName(e.target.value)}
+                    />
+                </div>
 
-            <div className="editInput-wrapper">
-                <label htmlFor="FirstName">First Name</label>
-                <input
-                    type="text"
-                    id="FirstName"
-                    name="FirstName"
-                    placeholder={firstName}
-                    disabled
-                />
-            </div>
+                <div className="editInput-wrapper">
+                    <label htmlFor="FirstName">First Name</label>
+                    <input
+                        type="text"
+                        id="FirstName"
+                        name="FirstName"
+                        placeholder={firstName}
+                        disabled
+                    />
+                </div>
 
-            <div className="editInput-wrapper">
-                <label htmlFor="LastName">Last Name</label>
-                <input
-                    type="text"
-                    id="LastName"
-                    name="LastName"
-                    placeholder={lastName}
-                    disabled
-                />
-            </div>
+                <div className="editInput-wrapper">
+                    <label htmlFor="LastName">Last Name</label>
+                    <input
+                        type="text"
+                        id="LastName"
+                        name="LastName"
+                        placeholder={lastName}
+                        disabled
+                    />
+                </div>
 
-            <div className="button-wrapper">
-                <Button className="btn btnLarge" type={"submit"}>
-                    Save
-                </Button>
-                <Button
-                    className="btn btnLarge"
-                    type={"button"}
-                    onClick={toggleEditForm}
-                >
-                    Cancel
-                </Button>
+                <div className="button-wrapper">
+                    <Button className="btn btnLarge" type={"submit"}>
+                        Save
+                    </Button>
+                    <Button
+                        className="btn btnLarge"
+                        type={"button"}
+                        onClick={toggleEditForm}
+                    >
+                        Cancel
+                    </Button>
+                </div>
             </div>
         </form>
     );

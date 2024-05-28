@@ -14,12 +14,18 @@
     color: #42b983;
 }
 
-.main-nav-item, .main-nav-all-item {
+.main-nav-item,
+.main-nav-all-item {
     display: flex;
+    align-items: center;
     gap: 0.5rem;
     text-decoration: none;
-    margin-right: 0.5rem;
+    /* margin-right: 0.5rem; */
     cursor: pointer;
+}
+
+.main-nav-all-item {
+    gap: 1rem;
 }
 
 .main-nav-item:hover {
@@ -34,4 +40,21 @@
 .main-nav-logo-image {
     max-width: 100%;
     width: 200px;
+}
+
+@media (max-width: 400px) {
+    .main-nav {
+        padding: 5px 10px;
+    }
+
+    .main-nav-item,
+    .main-nav-all-item {
+        font-size: 0.8rem;
+    }
+
+    .main-nav-all-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
 }
