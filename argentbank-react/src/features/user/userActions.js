@@ -26,12 +26,27 @@ export const changeUserName = createAsyncThunk(
     "user/updateUserName",
     async ({ token, userName }, thunkAPI) => {
         try {
+            // Récupérer les informations de l'utilisateur stockées dans le localStorage
+            const storedUser =
+                JSON.parse(localStorage.getItem("user")) ||
+                JSON.parse(sessionStorage.getItem("user"));
+
+            if (!storedUser || !storedUser.id) {
+                return thunkAPI.rejectWithValue("User not found in storage");
+            }
+
             const data = await updateUser(token, userName);
 
-            // Meise à jour du localStorage
-            const storedUser = JSON.parse(localStorage.getItem("user"));
-            storedUser.userName = data.userName;
-            localStorage.setItem("user", JSON.stringify(storedUser));
+            // Mise à jour du localStorage si l'ID est valide
+            if (data.id === storedUser.id) {
+                storedUser.userName = data.userName;
+                const storage = localStorage.getItem("user")
+                    ? localStorage
+                    : sessionStorage;
+                storage.setItem("user", JSON.stringify(storedUser));
+            } else {
+                return thunkAPI.rejectWithValue("User ID mismatch");
+            }
 
             return data;
         } catch (error) {

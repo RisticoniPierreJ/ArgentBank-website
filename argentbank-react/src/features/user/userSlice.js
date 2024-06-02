@@ -37,6 +37,11 @@ const userSlice = createSlice({
 
     reducers: {
         resetUser: (state) => {
+            // state.user.email = initialState.user.email;
+            // state.user.firstName = initialState.user.firstName;
+            // state.user.lastName = initialState.user.lastName;
+            // state.user.userName = initialState.user.userName;
+            // state.user.id = initialState.user.id;
             state.user.email = "";
             state.user.firstName = "";
             state.user.lastName = "";
@@ -58,7 +63,7 @@ const userSlice = createSlice({
     // Le builder est utilisé pour ajouter des gestionnaires d'actions à l'état.
     extraReducers: (builder) => {
         builder
-        
+
             //
             // Cas pour la recupération de la data de l'utilisateur
             //

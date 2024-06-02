@@ -160,7 +160,14 @@ paths:
         '200':
           description: Transaction updated successfully
           schema:
-            $ref: '#/definitions/ApiResponse'
+            type: object
+            properties:
+              status:
+                type: integer
+              message:
+                type: string
+              body:
+                $ref: '#/definitions/Transaction'
         '400':
           description: Invalid Fields
         '404':
@@ -174,6 +181,7 @@ securityDefinitions:
     type: apiKey
     name: Authorization
     in: header
+    
 definitions:
   User:
     properties:
@@ -257,25 +265,10 @@ definitions:
   TransactionUpdate:
     type: object
     properties:
-      accountId:
-        type: string
-        description: ID of the account associated with the transaction
-      date:
-        type: string
-        format: date
-        description: Date of the transaction
-      description:
-        type: string
-        description: Description of the transaction
-      amount:
-        type: number
-        description: Amount of the transaction
-      balance:
-        type: number
-        description: Balance of the transaction
       category:
         type: string
         description: Category of the transaction (e.g., Food, gift, etc.)
       note:
         type: string
         description: Note of the transaction
+

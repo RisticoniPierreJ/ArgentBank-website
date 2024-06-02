@@ -20,14 +20,14 @@ const authSlice = createSlice({
     reducers: {
         // Définission d'un reducer pour réinitialiser l'état d'authentification à l'état initial
         resetAuth: (state) => {
-            state.isAuthenticated = false;
-            state.token = null;
-            state.loading = false;
-            state.error = null;
             // state.isAuthenticated = initialState.isAuthenticated;
             // state.token = initialState.token;
             // state.loading = initialState.loading;
             // state.error = initialState.error;
+            state.isAuthenticated = false;
+            state.token = null;
+            state.loading = false;
+            state.error = null;
 
             // log de contrôle de l'état après réinitialisation
             console.log(
