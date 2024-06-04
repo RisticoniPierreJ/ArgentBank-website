@@ -105,7 +105,7 @@ paths:
         '500':
           description: Internal Server Error
 
-  /user/transaction:
+  /user/{userId}/transaction:
     get:
       security:
         - Bearer: []
@@ -115,6 +115,12 @@ paths:
       description: API for fetching user transactions for the current month grouped by account
       produces:
         - application/json
+      parameters:
+        - name: userId
+          in: path
+          description: ID of the user to fetch transactions for 
+          required: true
+          type: string
       responses:
         '200':
           description: Transactions retrieved successfully

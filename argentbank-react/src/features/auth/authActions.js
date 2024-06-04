@@ -44,6 +44,8 @@ export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
         // Réinitialisation du localStorage
         localStorage.removeItem("token");
         localStorage.removeItem("user");
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("user");
 
         // log de contrôle du localStorage après
         console.log(

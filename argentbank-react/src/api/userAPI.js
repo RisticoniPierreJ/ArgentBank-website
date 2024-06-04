@@ -39,6 +39,7 @@ export const getUserProfile = async (token) => {
 };
 
 // Fonction pour mettre à jour le nom d'utilisateur
+// Envoie une requête put à l'API pour modifier le pseudo de l'utilisateur
 export const updateUser = async (token, newUserNamee) => {
     const response = await axios.put(
         `${API_URL}/profile`,
